@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cache" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/database" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/DoubleColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/FloatColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/IntegerColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/LongColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/SQLXMLColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/ShortColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/StringColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/database/src/main/java/tam/summer/database/persistence/handler/impls/TimestampColumnHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/example" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/example/src/main/resources/dispatcher-servlet.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/example/src/main/webapp/WEB-INF/config.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/restdoc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webex" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

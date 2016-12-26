@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <!--<property name="location" value="/WEB-INF/config.properties"/>-->
+        <!--<property name="location" value="file:src/main/webapp/WEB-INF/config.properties"/>-->
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+        <property name="resultSetLogEnabled" value="${jdbc.showSql}"/>
+        <property name="statementExecutableSqlLogEnable" value="${jdbc.showSql}"/>
+        <property name="dataSourceLogEnabled" value="${jdbc.showSql}"/>
+        <property name="connectionLogEnabled" value="${jdbc.showSql}"/>
+        <property name="connectionLogErrorEnabled" value="${jdbc.showSql}"/>
+        <property name="statementLogEnabled" value="${jdbc.showSql}"/>
+        <property name="statementLogErrorEnabled" value="${jdbc.showSql}"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="validationQuery" value="${jdbc.validationQuery}"/>
+        <property name="filters" value="${jdbc.filters}"/>
+        <property name="connectionProperties" value="${jdbc.connectionProperties}"/>
+        <property name="dbType" value="${jdbc.dbType}"/>
+        <property name="initialSize" value="0"/>
+        <property name="minIdle" value="0"/>
+        <property name="maxActive" value="8"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="log-filter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="config" class="tam.summer.common.config.Config">
+        <property name="showSql" value="${jdbc.showSql}"/>
+        <property name="dbType" value="${jdbc.dbType}"/>
+        <property name="cacheEnabled" value="${cache.enable}"/>
+        <property name="cacheProvider" value="${cache.provider}"/>
+    </bean>
+
+    <bean id="databaseTemplate" class="tam.summer.database.DatabaseTemplate">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="config" ref="config"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="tam.summer.example">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+    </context:component-scan>
+
+    <!-- 对@AspectJ切面的bean创建代理 -->
+    <aop:aspectj-autoproxy/>
+</beans>

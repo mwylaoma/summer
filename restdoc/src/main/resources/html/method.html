@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Summer是一套基于Spring MVC框架所构建的RESTFUL快速开发框架。">
+		<meta name="keywords" content="Spring MVC, RESTFUL, Paris">
+		<meta name="robots" content="index,follow">
+		<meta name="application-name" content="Summer" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="msapplication-tap-highlight" content="no">
+		<META name="author" content="Summer Restful快速开发框架">
+		<title>Summer</title>
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+		<link type="text/css" rel="stylesheet" href="css/index.css" />
+		<link type="text/css" rel="stylesheet" href="css/prism.css" />
+	</head>
+
+	<body>
+		<div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
+		<aside id="nav-mobile" class="sidebar">
+			<ul class="nav clearfix">
+				<li class="sidebar-collapsible">
+					<ul class="collapsible collapsible-accordion">
+						<li><a class="collapsible-header waves-effect waves-teal" href="quick-start.html">快速上手</a></li>
+					</ul>
+				</li>
+				<li class="sidebar-collapsible">
+					<ul id="menu" class="collapsible collapsible-accordion">
+						<template v-for="module in modules">
+							<template v-if="module.active">
+								<li class="active">
+									<a class="collapsible-header waves-effect waves-teal active">{{module.name}}</a>
+									<div class="collapsible-body">
+										<ul>
+											<template v-for="apiClass in module.apiClasses">
+												<template v-if="apiClass.active">
+													<li class="active">
+														<a href="api-class.html?class={{apiClass.type}}">{{apiClass.name}}</a>
+													</li>
+												</template>
+												<template v-else>
+													<li>
+														<a href="api-class.html?class={{apiClass.type}}">{{apiClass.name}}</a>
+													</li>
+												</template>
+											</template>
+										</ul>
+									</div>
+								</li>
+							</template>
+							<template v-else>
+								<li>
+									<a class="collapsible-header waves-effect waves-teal">{{module.name}}</a>
+									<div class="collapsible-body">
+										<ul>
+											<template v-for="apiClass in module.apiClasses">
+												<template v-if="apiClass.active">
+													<li class="active">
+														<a href="api-class.html?class={{apiClass.type}}">{{apiClass.name}}</a>
+													</li>
+												</template>
+												<template v-else>
+													<li>
+														<a href="api-class.html?class={{apiClass.type}}">{{apiClass.name}}</a>
+													</li>
+												</template>
+											</template>
+										</ul>
+									</div>
+								</li>
+							</template>
+						</template>
+					</ul>
+				</li>
+			</ul>
+		</aside>
+
+		<main id="api-context">
+			<div id="index-banner" class="index-banner section no-pad-bot primary-bg">
+				<div class="container">
+					<h1 class=" center-on-small-only  text-light ">{{name}}</h1>
+
+					<div class="row">
+						<h4 class=" col s12 light  text-light">{{description}}</h4>
+					</div>
+					<br>
+					<br>
+				</div>
+			</div>
+
+			<div class="container">
+				<div id="context" class="row">
+					<div id="apiClassDescription" class="col s12">
+						<p class="promo-caption">
+							方法描述
+							<div class="waves-effect waves-light btn blue lighten-2">{{httpMethod}}</div>
+							<template v-if="requireAuth">
+								<div class="waves-effect waves-light btn green lighten-2">需验证</div>
+							</template>
+						</p>
+						<p id="apiMethodUrl" class="card-panel flow-text">{{description}}</p>
+					</div>
+					<div class="col s12">
+						<p class="promo-caption">URL</p>
+						<p id="apiMethodUrl" class="card-panel flow-text">{{url}}</p>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s12">
+						<ul class="tabs">
+							<li class="tab col s3"><a href="#test1">文档 DOCUMENT</a></li>
+							<li class="tab col s3"><a href="#test2" class="active">测试 API TEST</a></li>
+						</ul>
+					</div>
+					<div id="test1" class="col s12">
+						<p class="promo-caption">参数列表</p>
+						<div id="apiMethodParams" class="card-panel">
+							<table class="bordered highlight">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>名称</th>
+										<th>说明</th>
+										<th>类型</th>
+										<th>路径参数?</th>
+										<th style="width: 150px;"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<template v-for="param in params">
+										<tr>
+											<td>{{$index + 1}}</td>
+											<td>{{param.name}}</td>
+											<td>{{param.description}}</td>
+											<td>
+												{{param.showLinked == false?param.typeName:"Object"}}
+											</td>
+											<td>{{param.isPathVariable?"Y":""}}</td>
+											<td v-if="param.showLinked">
+												<a class="modal-trigger waves-effect waves-light btn" target="_blank" href="model-class.html?class={{param.type}}">参数定义</a>
+											</td>
+											<td v-else>
+											</td>
+										</tr>
+									</template>
+								</tbody>
+							</table>
+						</div>
+						<br />
+						<template v-if="apiReturn != null">
+							<p class="promo-caption">返回值</p>
+							<div v-if="apiReturnShowLinked" class="card-panel">
+								<a class="modal-trigger waves-effect waves-light btn" target="_blank" href="model-class.html?class={{apiReturn.type}}">返回值定义</a>
+							</div>
+							<div v-else class="card-panel flow-text">
+								{{apiReturn.typeName}}
+							</div>
+						</template>
+					</div>
+					<div id="test2" class="col s12">
+						<div class="row">
+							<div class="col s12">
+								<br />
+								<div class="input-field col s12">
+									<input value="{{url}}" id="test-url" type="text">
+									<label for="test-url">URL</label>
+								</div>
+								<template v-if="requireAuth">
+									<div class="input-field col s12">
+										<input id="test-appkey" type="text">
+										<label for="test-appkey">APP-KEY</label>
+									</div>
+								</template>
+								<template v-if="httpMethod.toLowerCase() != 'get'">
+									<div class="input-field col s12">
+										<textarea id="test-param" type="text" class="materialize-textarea"></textarea>
+										<label for="test-param">请求参数 (JSON 格式)</label>
+									</div>
+								</template>
+								<div class="col s12">
+									<div id="btnExecTest" class="waves-effect waves-light btn blue lighten-1">执行测试</div>
+									<div id="btnClearParam" class="waves-effect waves-light btn green lighten-1">清空参数</div>
+									<div id="btnClearResult" class="waves-effect waves-light btn green lighten-1">清空结果</div>
+								</div>
+								<div class="col s12">
+									<pre id="test-result" class="card-panel"></pre>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer id="footer" class="page-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<h5 class="white-text">{{company}}</h5>
+						<p class="grey-text text-lighten-4">{{description}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">© 2015 Copyright</div>
+			</div>
+		</footer>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+			var className;
+			var methodName;
+			var apiClass;
+			var apiMethod;
+			$(function() {
+				initVar();
+				init.footer();
+				init.menu();
+				bindApiMethod();
+			});
+			$("#btnExecTest").click(function() {
+				var apiUrl = $("#test-url").val();
+				var appkey = $("#test-appkey");
+				var httpMethod = apiMethod.httpMethod;
+				var param = {};
+				if (httpMethod.toLowerCase() != "get") {
+					try {
+						var jsonTxt = $("#test-param").val();
+						if (jsonTxt.length > 0) {
+							if (apiMethod.params != null && apiMethod.params.length > 0) {
+								param = JSON.parse($("#test-param").val());
+							}
+							param = JSON.stringify(param);
+						}
+					} catch (e) {
+						$("#test-result").html("Json数据转换出错：" + e.message);
+						return;
+					}
+				}
+				$("#test-result").empty();
+				$.ajax({
+					type: httpMethod,
+					async: false,
+					dataType: "json",
+					contentType: "application/json",
+					url: meta.base_url + apiUrl,
+					beforeSend: function(xhr) {
+						if (appkey != "") {
+							xhr.setRequestHeader("authorization", "APP_KEYS " + appkey);
+						}
+					},
+					data: param,
+					success: function(data, txt) {
+						console.dir(data);
+						if (data == null) {
+							$("#test-result").html("操作成功！");
+							return;
+						};
+						if (data.length == 0) {
+							$("#test-result").html("操作成功，返回 0 行记录！");
+							return;
+						}
+						$("#test-result").html(JSON.stringify(data, null, "\t"));
+					},
+					error: function(request, txt, err) {
+						var msg = "";
+						if (request.status == "200") {
+							msg += "操作成功[" + request.status + "]！";
+						} else {
+							msg += "发生错误[" + request.status + "]：\n";
+							msg += request.responseText;
+						}
+						$("#test-result").html(msg);
+					}
+				});
+			});
+			$("#btnClearResult").click(function() {
+				$("#test-result").html("");
+			});
+			$("#btnClearParam").click(function() {
+				$("#test-param").html("");
+			});
+
+			function initVar() {
+				className = GetUrlParms()["class"];
+				methodName = GetUrlParms()["method"];
+				apiClass = meta.loadClass(className);
+				apiMethod = getApiMethod();
+				if (apiMethod == null) return;
+			}
+
+			function bindApiMethod() {
+				new Vue({
+					el: "#api-context",
+					data: apiMethod
+				});
+			}
+
+			function bindDocTitle() {
+				document.title = "Summer - Model Class - " + apiClass.name + " - " + apiMethod.name;
+			}
+
+			function getApiMethod() {
+				var result = null;
+				for (var mi in apiClass.apiMethods) {
+					var method = apiClass.apiMethods[mi];
+					if (methodName == method.methodName) {
+						result = method;
+						break;
+					}
+				}
+				return result;
+			}
+		</script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+	</body>
+
+</html>
