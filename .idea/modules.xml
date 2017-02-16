@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
       <module fileurl="file://$PROJECT_DIR$/restdoc/restdoc.iml" filepath="$PROJECT_DIR$/restdoc/restdoc.iml" />
       <module fileurl="file://$PROJECT_DIR$/tam.summer.iml" filepath="$PROJECT_DIR$/tam.summer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/webex/webex.iml" filepath="$PROJECT_DIR$/webex/webex.iml" />
     </modules>
   </component>
 </project>
