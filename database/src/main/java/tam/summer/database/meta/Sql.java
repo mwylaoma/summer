@@ -13,6 +13,7 @@ import java.util.function.Function;
 /**
  * Created by tanqimin on 2015/9/16.
  */
+@SuppressWarnings("unchecked")
 public class Sql {
     private final static Logger logger = LogManager.getLogger(Sql.class);
 
@@ -617,7 +618,10 @@ public class Sql {
     public Sql appendLine(
             String clause,
             Collection... params) {
-        return this.append(clause, params).wrap();
+        if(params == null){
+            return this.append(clause).wrap();
+        }
+        return this.append(clause, new Object[]{params}).wrap();
     }
 
     /**

@@ -22,6 +22,7 @@ import java.util.Set;
 /**
  * Created by Dreampie on 15/4/24.
  */
+@SuppressWarnings("unchecked")
 public class RedisProvider
         extends CacheProvider {
 

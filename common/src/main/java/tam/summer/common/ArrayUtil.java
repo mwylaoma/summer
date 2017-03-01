@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by tanqimin on 2016/1/22.
  */
+@SuppressWarnings("unchecked")
 public class ArrayUtil {
     public static String[] convert(Object... params) {
         if (params == null) {

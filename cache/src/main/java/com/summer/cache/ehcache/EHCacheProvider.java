@@ -15,6 +15,7 @@ import java.net.URL;
 /**
  * EHCacheProvider
  */
+@SuppressWarnings("unchecked")
 public class EHCacheProvider
         extends CacheProvider {
     private final static Logger logger = LogManager.getLogger(EHCacheProvider.class);

@@ -1,6 +1,7 @@
 package tam.summer.example.domain.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.*;
 import tam.summer.common.DateTimeFormat;
 import tam.summer.database.annotation.Column;
 import tam.summer.restdoc.annotation.FieldComment;
@@ -12,6 +13,10 @@ import java.util.UUID;
 /**
  * Created by tanqimin on 2015/11/24.
  */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = {"id", "version"})
 public class EntityBase implements Serializable {
     @Column(isPrimaryKey = true)
     @FieldComment(description = "ID", required = true)
@@ -21,50 +26,16 @@ public class EntityBase implements Serializable {
     private int version;
     @Column
     @FieldComment(description = "创建时间", required = true)
-//    @JSONField(format = DateTimeFormat.DATE_TIME)
     private Date created;
     @Column
     @FieldComment(description = "最后修改时间", required = true)
-//    @JSONField(format = DateTimeFormat.DATE_TIME)
     private Date modified;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
 
     public void markNew() {
         markNew(UUID.randomUUID().toString());
     }
 
-    public void markNew(String id) {
+    private void markNew(String id) {
         this.id = id;
         this.version = 1;
         Date now = new Date();

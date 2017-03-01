@@ -33,13 +33,13 @@ import java.util.*;
 /**
  * Created by tanqimin on 2015/11/4.
  */
+@SuppressWarnings("unchecked")
 abstract class AbstractDao<TModel> {
     private Logger logger = LogManager.getLogger(getClass());
     private Class<TModel> clazz;
     private TableMeta     tableMeta;
     private boolean       enableCached;
 
-    @SuppressWarnings("unchecked")
     public AbstractDao() {
         this.clazz = (Class<TModel>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         this.tableMeta = MetaData.table(this.clazz);

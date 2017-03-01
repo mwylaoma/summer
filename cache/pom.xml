@@ -16,7 +16,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tam.summer.version>${parent.version}</tam.summer.version>
+        <tam.summer.version>${project.parent.version}</tam.summer.version>
         <jedis.version>2.6.2</jedis.version>
         <ehcache.version>2.6.6</ehcache.version>
     </properties>

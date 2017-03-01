@@ -31,6 +31,7 @@ public class Page<T> implements Serializable {
      * @param <T>
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static <T> Page<T> blankPage(int currentPage, int recordsPerPage) {
         return new Page<>(Collections.EMPTY_LIST, currentPage, recordsPerPage, 0, 0);
     }

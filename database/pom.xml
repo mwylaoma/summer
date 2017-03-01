@@ -16,8 +16,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tam.summer.version>${parent.version}</tam.summer.version>
-        <spring.version>4.2.2.RELEASE</spring.version>
+        <tam.summer.version>${project.parent.version}</tam.summer.version>
+        <spring.version>4.3.6.RELEASE</spring.version>
         <druid.version>1.0.19</druid.version>
         <aspectj.version>1.5.4</aspectj.version>
     </properties>

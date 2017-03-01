@@ -23,7 +23,7 @@ public class DepartmentService
     public Department findDepartmentById(String id) {
         List<Department> departments = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
-            String     uuid       = UUID.randomUUID().toString();
+            String uuid = UUID.randomUUID().toString();
             Department department = new Department();
             department.setId(uuid);
             department.setCode(uuid);
@@ -63,18 +63,7 @@ public class DepartmentService
         return departmentDao.findBy(ids);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public Page<Department> findAllDepartment() throws Exception {
-
-        List<Department> departments = departmentDao.findAllDepartment();
-        for (int i = 0; i < departments.size(); i++) {
-            if(i == 2)
-                throw new Exception("1111111111111111111");
-
-            Department department = departments.get(i);
-            department.setName("ABCD" + i);
-        }
-
         return departmentDao.findByPage(1, 20);
     }
 

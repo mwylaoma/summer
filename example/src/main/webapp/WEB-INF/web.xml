@@ -89,7 +89,7 @@
 
     <filter>
         <filter-name>cors</filter-name>
-        <filter-class>tam.summer.web.filter.CorsFilter</filter-class>
+        <filter-class>tam.summer.example.filter.CorsFilter</filter-class>
     </filter>
 
     <filter-mapping>
